@@ -8,15 +8,27 @@ const breakfastBurrito = {name: "Breakfast Burrito", price: 16, category:"Breakf
 
 function createMenuItem(name, cost, category){
     /* Code here */
+    // const item = {};
+    // item.name = name;
+    // item.cost = cost;
+    // item.category = category;
+
+    // return item;
+    return {name, cost, category}
 }
+
 
 /* Task 1b: use your function to create 3 more menu items. You may add any items to the menu that you'd like */
 
+console.log(createMenuItem("Flat White", 4.50, "Drinks"));
+console.log(createMenuItem("Pizza", 14.50, "Lunch"));
 
 
-/* Task 2: You're having a lunch special! 25% off for teachers and students, 10% off for everyone else. Add a method to your burger object that automatically calculates price given a string as a parameter. 
+/* Task 2: You're having a lunch special! 25% off for teachers and students, 10% off for everyone else. Add a method to your burger object that automatically
+ calculates price given a string as a parameter. 
 
 Your method should accept: 
+
 
 (1) A string (teacher, student, or public)
 
@@ -24,11 +36,21 @@ and should return a number.
 
 For example, burger.discount("teacher") would return 13.5 and burger.discount("public") would return 16.2*/
 
+burger.discount = function (occupation) {
+  if (occupation === "teacher" || occupation === "student") {
+    this.price = this.price * 0.75;
+  } else {
+    this.price = this.price - (this.price * 0.10);
+  }
+  return this.price;
+ }
 
+ console.log(burger.discount("teacher"));
 
 ///////////////Reviews (MVP)///////////////////
 
-const reviews = [{name: "Daniela", rating: 5, feedback:"Beautiful atmosphere and wonderful vegan options!"},
+const reviews = [
+    {name: "Daniela", rating: 5, feedback:"Beautiful atmosphere and wonderful vegan options!"},
     {name: "Jack", rating: 3, feedback:"A little too hipster for my taste, but the burger was decent, if overpriced"},
     {name: "Miranda", rating: 4, feedback:"fun trivia and cool vibes"},
     {name: "Wen", rating: 4.5, feedback:"I don't leave my house often, but when I do, it's for this place. Highly reccomend."},
@@ -37,6 +59,9 @@ const reviews = [{name: "Daniela", rating: 5, feedback:"Beautiful atmosphere and
     {name:"Lauren", rating: 4, feedback: "Absolutely love that they have karaoke Fridays! Food and drink selection is okay."},
     {name:"Reyna", rating: 3.5, feedback: ""},
 ]
+
+reviews[reviews.length - 1].feedback = "this place is chill with really cool people, great for getting work done on weekdays";
+console.log(reviews[reviews.length - 1].feedback);
 
 /* Task 3: Console.log just Julius' feedback */
 
@@ -60,8 +85,10 @@ and should return a string in the format `{name} gave the restaurant a {rating},
 */
 function getReviewByIndex(reviews, index) {
     /* code here */
+    return `${reviews[index].name} gave the restaurant a ${reviews[index].rating} and their feedback was: ${reviews[index].feedback}`
   }
   
+  console.log(getReviewByIndex(reviews, 3))
 
 /* Task 7: Write a function to get information about the most recent review called `getLastReview`
 
@@ -72,9 +99,12 @@ and should return a string in the format `name} gave the restaurant a {rating}, 
 
 For example, if getLastReview is invoked passing the reviews array it will return `Reyna gave the restaurant a 3.5 star review and their feedback was: "this place is chill with really cool people, great for getting work done on weekdays"`.
 */
-function getLastReview(/* code here */) {
+function getLastReview(feedbacks) {
     /* code here */
+    return `${reviews[reviews.length - 1].name} gave the restaurant a ${reviews[reviews.length - 1].rating} star review and their feedback was: "${reviews[reviews.length - 1].feedback}"`
   } 
+
+  console.log(getLastReview(reviews))
 
 
 ///////////////🍔☕️🍽 STRETCH🍔☕️🍽////////////////////
@@ -91,9 +121,18 @@ function getLastReview(/* code here */) {
     {name:"Lauren", rating: 4, feedback: "Absolutely love that they have karaoke Fridays! Food and drink selection is okay."}]
 */
 
- function getReviewByRating(/* code here */) {
+ function getReviewByRating(feedbacks, numOfStars) {
     /* code here */
+    const reviews = [];
+    for (item of feedbacks) {
+      if (item.rating >= numOfStars && item.rating < numOfStars + 1) {
+        reviews.push(item)
+      }
+    }
+    return reviews;
   }
+
+  console.log(getReviewByRating(reviews, 4));
 
   
 /** STRETCH 2: Write a function called 'getLongestReview' that returns an array containing all reviews longer than 15 words. 
