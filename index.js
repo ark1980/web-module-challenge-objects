@@ -148,10 +148,17 @@ and should return an array of objects.
     {name: "Brett", rating: 3, feedback: "great selection of snacks and a nice cafe area to get work done during the day."},
     {name: "Julius", rating: 2, feedback: "I was largely unimpressed by this venue. Nothing special on the menu and too expensive. The atmosphere is polarizing, and not for me, but I think some would like it." }]
 */
-  function getLongReviews(/* code here */) {
+  function getLongReviews(reviews) {
     /* code here */
+    const longestReviews = [];
+    for (review of reviews) {
+      const feedbackArr = review.feedback.split(' ');
+      if (feedbackArr.length > 15) longestReviews.push(review);
+    }
+    return longestReviews;
   }
   
+  console.log(getLongReviews(reviews));
 
 /* STRETCH 3:  This challenge is not related to the data above! 
 
@@ -171,7 +178,16 @@ The returned object should have the following characteristics:
 */
 
 
-function carMaker(/* code here */) {
+function carMaker(num) {
     /* code here */
-    
+    return {
+      odometer: num,
+      drive(distance) {
+        this.odometer += distance;
+        return this.odometer;
+      }
+    }
 }
+
+console.log(carMaker(1000).drive(55));
+
